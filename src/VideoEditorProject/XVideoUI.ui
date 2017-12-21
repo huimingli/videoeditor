@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1118</width>
+    <width>1204</width>
     <height>815</height>
    </rect>
   </property>
@@ -40,12 +40,17 @@ QPushButton:hover
     border-radius:5px;
 	color: rgb(255, 255, 255);
 	font: 75 12pt &quot;黑体&quot;;
+}
+QLabel
+{
+font: 75 12pt &quot;黑体&quot;;
+color: rgb(255, 255, 255);
 }</string>
   </property>
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
     <rect>
-     <x>1070</x>
+     <x>1170</x>
      <y>10</y>
      <width>31</width>
      <height>21</height>
@@ -66,16 +71,16 @@ QPushButton:hover
     <rect>
      <x>10</x>
      <y>20</y>
-     <width>800</width>
-     <height>600</height>
+     <width>560</width>
+     <height>452</height>
     </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="openButton">
    <property name="geometry">
     <rect>
-     <x>840</x>
-     <y>620</y>
+     <x>630</x>
+     <y>490</y>
      <width>93</width>
      <height>31</height>
     </rect>
@@ -88,8 +93,8 @@ QPushButton:hover
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>640</y>
-     <width>801</width>
+     <y>500</y>
+     <width>561</width>
      <height>22</height>
     </rect>
    </property>
@@ -98,6 +103,78 @@ QPushButton:hover
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>550</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>亮度[0-100]</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>580</y>
+     <width>161</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>对比度[1.0-3.0]</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="bright">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>550</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="contrast">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>580</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <double>3.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="setButton">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>550</y>
+     <width>93</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设置</string>
+   </property>
+  </widget>
+  <widget class="XVideoWidget" name="des">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>20</y>
+     <width>560</width>
+     <height>452</height>
+    </rect>
    </property>
   </widget>
  </widget>
@@ -120,12 +197,12 @@ QPushButton:hover
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>778</x>
+     <x>1170</x>
      <y>24</y>
     </hint>
     <hint type="destinationlabel">
      <x>633</x>
-     <y>-29</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -136,12 +213,12 @@ QPushButton:hover
    <slot>open()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>431</x>
-     <y>250</y>
+     <x>630</x>
+     <y>490</y>
     </hint>
     <hint type="destinationlabel">
      <x>430</x>
-     <y>-41</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -152,12 +229,12 @@ QPushButton:hover
    <slot>sliderPress()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>592</x>
-     <y>642</y>
+     <x>570</x>
+     <y>502</y>
     </hint>
     <hint type="destinationlabel">
      <x>588</x>
-     <y>-35</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -169,11 +246,11 @@ QPushButton:hover
    <hints>
     <hint type="sourcelabel">
      <x>460</x>
-     <y>647</y>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
-     <y>-13</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -184,18 +261,34 @@ QPushButton:hover
    <slot>setPos(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>671</x>
-     <y>649</y>
+     <x>570</x>
+     <y>509</y>
     </hint>
     <hint type="destinationlabel">
      <x>655</x>
-     <y>-25</y>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setButton</sender>
+   <signal>clicked()</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>set()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>982</x>
+     <y>560</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>-27</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>open()</slot>
+  <slot>set()</slot>
   <slot>sliderPress()</slot>
   <slot>sliderRelease()</slot>
   <slot>setPos(int)</slot>

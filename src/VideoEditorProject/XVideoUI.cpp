@@ -3,6 +3,7 @@
 #include<string>
 #include<qmessagebox.h>
 #include"XVideoThread.h"
+#include"XFilter.h"
 using namespace std;
 static bool pressSlider = false;
 XVideoUI::XVideoUI(QWidget *parent)
@@ -16,6 +17,12 @@ XVideoUI::XVideoUI(QWidget *parent)
 		ui.src1Video,//槽接收的对象
 		SLOT(setImage(cv::Mat))//槽
 		);
+
+	QObject::connect(XVideoThread::Get(),//信号发出的对象
+		SIGNAL(viewDes(cv::Mat)),//信号
+		ui.des,//槽接收的对象
+		SLOT(setImage(cv::Mat))//槽
+	);
 	startTimer(40);//启动计时器
 }
 void XVideoUI::open() {
@@ -52,4 +59,14 @@ void XVideoUI::sliderRelease()
 void XVideoUI::setPos(int pos)
 {
 	XVideoThread::Get()->seek((double)pos / 1000);
+}
+
+void XVideoUI::set()
+{
+	XFilter::Get()->clear();
+	//对比度和亮度的设置
+	if (ui.bright->value() > 0 ||
+		ui.contrast->value() >1) {
+		XFilter::Get()->addTask(XTask{ XTASK_GAIN,{(double)(ui.bright->value()),ui.contrast->value()} });
+	}
 }

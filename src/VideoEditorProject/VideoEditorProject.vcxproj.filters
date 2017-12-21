@@ -73,6 +73,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_XVideoThread.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="XImagePro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="XVideoUI.h">
@@ -88,6 +94,12 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="XVideoThread.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="XImagePro.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="XFilter.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

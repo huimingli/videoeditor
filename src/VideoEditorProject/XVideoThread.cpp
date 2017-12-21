@@ -3,11 +3,13 @@
 #include<opencv2\imgcodecs.hpp>
 #include<opencv2\imgproc.hpp>
 #include<opencv2\highgui.hpp>
+#include"XFilter.h"
 using namespace std;
 using namespace cv;
 //一号视频源
 static VideoCapture cap1;
 static bool isExit = false;
+ 
 XVideoThread::XVideoThread()
 {
 	 
@@ -20,6 +22,7 @@ XVideoThread::~XVideoThread()
 	mutex.lock();
 	isExit = true;
 	mutex.unlock();
+	wait();
 }
 
 bool XVideoThread::open(const std::string file)
@@ -92,8 +95,12 @@ void XVideoThread::run()
 			msleep(5);
 			continue;
 		}
-		//显示图像
+		//显示图像1
 		viewImage1(mat1);
+		//通过过滤器处理视频
+		Mat des = XFilter::Get()->filter(mat1, Mat());
+		//把结果显示出来
+		viewDes(des);
 		int s = 0;
 		s = 1000 / fps;
 		msleep(s);

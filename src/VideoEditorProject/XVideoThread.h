@@ -28,6 +28,8 @@ public:
 	void run();
 signals:
 	void viewImage1(cv::Mat);
+
+	void viewDes(cv::Mat);
 protected:
 	QMutex mutex;
 	XVideoThread();
