@@ -31,7 +31,7 @@ public:
     {
         if (XVideoUIClass->objectName().isEmpty())
             XVideoUIClass->setObjectName(QStringLiteral("XVideoUIClass"));
-        XVideoUIClass->resize(800, 600);
+        XVideoUIClass->resize(1118, 815);
         XVideoUIClass->setStyleSheet(QString::fromUtf8("#XVideoUIClass\n"
 "{\n"
 "background-color: rgb(53, 53, 53);\n"
@@ -61,15 +61,15 @@ public:
 "}"));
         closeButton = new QPushButton(XVideoUIClass);
         closeButton->setObjectName(QStringLiteral("closeButton"));
-        closeButton->setGeometry(QRect(760, 10, 31, 21));
+        closeButton->setGeometry(QRect(1070, 10, 31, 21));
         closeButton->setStyleSheet(QStringLiteral(""));
         closeButton->setFlat(true);
         src1Video = new XVideoWidget(XVideoUIClass);
         src1Video->setObjectName(QStringLiteral("src1Video"));
-        src1Video->setGeometry(QRect(20, 10, 300, 200));
+        src1Video->setGeometry(QRect(10, 20, 800, 600));
         openButton = new QPushButton(XVideoUIClass);
         openButton->setObjectName(QStringLiteral("openButton"));
-        openButton->setGeometry(QRect(370, 237, 93, 31));
+        openButton->setGeometry(QRect(120, 630, 93, 31));
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));

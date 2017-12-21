@@ -1,7 +1,11 @@
 #pragma once
 #include<string>
-class XVideoThread 
+#include<QThread>
+#include<QMutex>
+#include<opencv2/core.hpp>
+class XVideoThread:public QThread
 {
+	Q_OBJECT
 public:
 	static XVideoThread * Get() {
 		static XVideoThread vt;
@@ -12,8 +16,11 @@ public:
 
 	bool open(const std::string file);
 
-	void operator()() const;
+	void run();
+signals:
+	void viewImage1(cv::Mat);
 protected:
+	QMutex mutex;
 	XVideoThread();
 };
 

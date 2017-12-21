@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1118</width>
+    <height>815</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,7 +45,7 @@ QPushButton:hover
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
     <rect>
-     <x>760</x>
+     <x>1070</x>
      <y>10</y>
      <width>31</width>
      <height>21</height>
@@ -64,18 +64,18 @@ QPushButton:hover
   <widget class="XVideoWidget" name="src1Video">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>300</width>
-     <height>200</height>
+     <x>10</x>
+     <y>20</y>
+     <width>800</width>
+     <height>600</height>
     </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="openButton">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>237</y>
+     <x>120</x>
+     <y>630</y>
      <width>93</width>
      <height>31</height>
     </rect>
