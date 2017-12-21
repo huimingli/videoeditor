@@ -7,6 +7,7 @@ class XVideoThread:public QThread
 {
 	Q_OBJECT
 public:
+	int fps = 0;
 	static XVideoThread * Get() {
 		static XVideoThread vt;
 		return &vt;
@@ -15,6 +16,14 @@ public:
 	~XVideoThread();
 
 	bool open(const std::string file);
+
+	double getPos();//返回当前播放的位置
+
+	//视频跳转
+	//@para frame int 帧位置
+	bool seek(int frame);
+
+	bool seek(double pos);
 
 	void run();
 signals:

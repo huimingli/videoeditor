@@ -4,6 +4,7 @@
 #include<qmessagebox.h>
 #include"XVideoThread.h"
 using namespace std;
+static bool pressSlider = false;
 XVideoUI::XVideoUI(QWidget *parent)
 	: QWidget(parent)
 {
@@ -15,6 +16,7 @@ XVideoUI::XVideoUI(QWidget *parent)
 		ui.src1Video,//槽接收的对象
 		SLOT(setImage(cv::Mat))//槽
 		);
+	startTimer(40);//启动计时器
 }
 void XVideoUI::open() {
 	QString name = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("请选择视频文件"));
@@ -26,4 +28,28 @@ void XVideoUI::open() {
 		return;
 	}
 	/*QMessageBox::information(0, "", name);*/
+}
+
+void XVideoUI::timerEvent(QTimerEvent * e)
+{
+	if (pressSlider)//正在拖动时，不设置移动
+		return;
+	double pos = XVideoThread::Get()->getPos();
+	ui.playSlider->setValue(pos * 1000);
+}
+
+void XVideoUI::sliderPress()
+{
+	pressSlider = true;
+}
+
+void XVideoUI::sliderRelease()
+{
+	pressSlider = false;
+}
+
+//滑动条拖动
+void XVideoUI::setPos(int pos)
+{
+	XVideoThread::Get()->seek((double)pos / 1000);
 }

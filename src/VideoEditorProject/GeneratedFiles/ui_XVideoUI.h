@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QWidget>
 #include "xvideowidget.h"
 
@@ -26,6 +27,7 @@ public:
     QPushButton *closeButton;
     XVideoWidget *src1Video;
     QPushButton *openButton;
+    QSlider *playSlider;
 
     void setupUi(QWidget *XVideoUIClass)
     {
@@ -69,11 +71,19 @@ public:
         src1Video->setGeometry(QRect(10, 20, 800, 600));
         openButton = new QPushButton(XVideoUIClass);
         openButton->setObjectName(QStringLiteral("openButton"));
-        openButton->setGeometry(QRect(120, 630, 93, 31));
+        openButton->setGeometry(QRect(840, 620, 93, 31));
+        playSlider = new QSlider(XVideoUIClass);
+        playSlider->setObjectName(QStringLiteral("playSlider"));
+        playSlider->setGeometry(QRect(10, 640, 801, 22));
+        playSlider->setMaximum(999);
+        playSlider->setOrientation(Qt::Horizontal);
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
         QObject::connect(openButton, SIGNAL(clicked()), XVideoUIClass, SLOT(open()));
+        QObject::connect(playSlider, SIGNAL(sliderPressed()), XVideoUIClass, SLOT(sliderPress()));
+        QObject::connect(playSlider, SIGNAL(sliderReleased()), XVideoUIClass, SLOT(sliderRelease()));
+        QObject::connect(playSlider, SIGNAL(sliderMoved(int)), XVideoUIClass, SLOT(setPos(int)));
 
         QMetaObject::connectSlotsByName(XVideoUIClass);
     } // setupUi

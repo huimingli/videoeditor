@@ -27,7 +27,48 @@ bool XVideoThread::open(const std::string file)
 	mutex.lock();
 	int re = cap1.open(file);
 	mutex.unlock();
+	if (!re) {
+		return re;
+	}
+	fps = cap1.get(CAP_PROP_FPS);
+	if (fps <= 0) fps = 25;
+	return true;
+}
+
+double XVideoThread::getPos()
+{
+	double pos = 0;
+	mutex.lock();
+	if (!cap1.isOpened()) {
+		mutex.unlock();
+		return pos;
+	}
+	double count = cap1.get(CAP_PROP_FRAME_COUNT);
+	double cur1 = cap1.get(CAP_PROP_POS_FRAMES);
+	if(count>0.001)
+	    pos = cur1 / count;
+	mutex.unlock();
+	return pos;
+}
+
+bool XVideoThread::seek(int frame)
+{
+	mutex.lock();
+	if (!cap1.isOpened()) {
+		mutex.unlock();
+		return false;
+	}
+	int re = cap1.set(CAP_PROP_POS_FRAMES, frame);
+	mutex.unlock();
 	return re;
+}
+
+bool XVideoThread::seek(double pos)
+{
+	double count = cap1.get(CAP_PROP_FRAME_COUNT);
+	int frame = pos*count;
+	return seek(frame);
+	 
 }
 
 void XVideoThread::run()
@@ -53,7 +94,9 @@ void XVideoThread::run()
 		}
 		//显示图像
 		viewImage1(mat1);
-		msleep(40);
+		int s = 0;
+		s = 1000 / fps;
+		msleep(s);
 		mutex.unlock();		
 	}
 }

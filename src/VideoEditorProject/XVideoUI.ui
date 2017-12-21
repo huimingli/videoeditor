@@ -74,14 +74,30 @@ QPushButton:hover
   <widget class="QPushButton" name="openButton">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>630</y>
+     <x>840</x>
+     <y>620</y>
      <width>93</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string>打开</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="playSlider">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>640</y>
+     <width>801</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>999</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>
@@ -129,8 +145,59 @@ QPushButton:hover
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>playSlider</sender>
+   <signal>sliderPressed()</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>sliderPress()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>592</x>
+     <y>642</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>588</x>
+     <y>-35</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>playSlider</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>sliderRelease()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>460</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>-13</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>playSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>setPos(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>671</x>
+     <y>649</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>655</x>
+     <y>-25</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
+  <slot>sliderPress()</slot>
+  <slot>sliderRelease()</slot>
+  <slot>setPos(int)</slot>
  </slots>
 </ui>
