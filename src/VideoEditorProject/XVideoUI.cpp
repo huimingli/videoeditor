@@ -6,6 +6,7 @@
 #include"XFilter.h"
 using namespace std;
 static bool pressSlider = false;
+static bool isExport = false;
 XVideoUI::XVideoUI(QWidget *parent)
 	: QWidget(parent)
 {
@@ -17,11 +18,18 @@ XVideoUI::XVideoUI(QWidget *parent)
 		ui.src1Video,//槽接收的对象
 		SLOT(setImage(cv::Mat))//槽
 		);
-
+	//输出视频显示信号
 	QObject::connect(XVideoThread::Get(),//信号发出的对象
 		SIGNAL(viewDes(cv::Mat)),//信号
 		ui.des,//槽接收的对象
 		SLOT(setImage(cv::Mat))//槽
+	);
+
+	//导出视频显示信号
+	QObject::connect(XVideoThread::Get(),//信号发出的对象
+		SIGNAL(saveEnd()),//信号
+		this,//槽接收的对象
+		SLOT(exportEnd())//槽
 	);
 	startTimer(40);//启动计时器
 }
@@ -69,4 +77,30 @@ void XVideoUI::set()
 		ui.contrast->value() >1) {
 		XFilter::Get()->addTask(XTask{ XTASK_GAIN,{(double)(ui.bright->value()),ui.contrast->value()} });
 	}
+}
+void XVideoUI::exportVideo()
+{
+	
+	if (isExport) {
+		//停止导出
+		XVideoThread::Get()->stopSave();
+		isExport = false;
+		ui.exportButton->setText("start export");
+		return;
+	}
+	//开始导出
+	QString name = QFileDialog::getSaveFileName(this,"save","out1.avi");
+	if (name.isEmpty())
+		return;
+	std::string filename = name.toLocal8Bit().data();
+	if (XVideoThread::Get()->startSave(filename)) {
+		isExport = true;
+		ui.exportButton->setText("stop export");
+	}
+}
+
+void XVideoUI::exportEnd()
+{
+	isExport = false;
+	ui.exportButton->setText("start export");
 }

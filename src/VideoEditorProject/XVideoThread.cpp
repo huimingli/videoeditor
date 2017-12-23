@@ -9,6 +9,8 @@ using namespace cv;
 //一号视频源
 static VideoCapture cap1;
 static bool isExit = false;
+
+static VideoWriter vw;
  
 XVideoThread::XVideoThread()
 {
@@ -74,6 +76,39 @@ bool XVideoThread::seek(double pos)
 	 
 }
 
+bool XVideoThread::startSave(const std::string filename, int width, int height)
+{
+	cout << "startSave export int" << endl;
+	seek(0);
+	mutex.lock();
+	if (!cap1.isOpened()) {
+		mutex.unlock();
+		return false;
+	}
+	if (width <= 0)
+		width = cap1.get(CAP_PROP_FRAME_WIDTH);
+	if (height <= 0)
+		height = cap1.get(CAP_PROP_FRAME_HEIGHT);
+	vw.open(filename, 
+		VideoWriter::fourcc('X', '2', '6', '4'),
+		fps,Size(width,height));
+	if (!vw.isOpened()) {
+		cout << "start save failed" << endl;
+	 }
+	isWrite = true;
+	mutex.unlock();
+	return true;
+}
+
+void XVideoThread::stopSave()
+{
+	cout << "stopSave export int" << endl;
+	mutex.lock();
+	vw.release();
+	isWrite = false;
+	mutex.unlock();
+}
+
 void XVideoThread::run()
 {
 	Mat mat1;
@@ -92,17 +127,28 @@ void XVideoThread::run()
 		//读取一帧视频，解码并颜色转换
 		if (!cap1.read(mat1)|| mat1.empty()) {
 			mutex.unlock();	 
+			if (isWrite) {//导出结束
+				stopSave();
+				saveEnd();
+			}
 			msleep(5);
 			continue;
 		}
 		//显示图像1
-		viewImage1(mat1);
+		if (!isWrite)
+		    viewImage1(mat1);
 		//通过过滤器处理视频
 		Mat des = XFilter::Get()->filter(mat1, Mat());
 		//把结果显示出来
-		viewDes(des);
+		if (!isWrite)
+		    viewDes(des);
 		int s = 0;
 		s = 1000 / fps;
+		if (isWrite) {
+			s = 1;
+			vw.write(des);
+		}
+	 
 		msleep(s);
 		mutex.unlock();		
 	}

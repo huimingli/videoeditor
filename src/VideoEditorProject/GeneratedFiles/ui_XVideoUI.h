@@ -37,6 +37,7 @@ public:
     QDoubleSpinBox *contrast;
     QPushButton *setButton;
     XVideoWidget *des;
+    QPushButton *exportButton;
 
     void setupUi(QWidget *XVideoUIClass)
     {
@@ -111,6 +112,9 @@ public:
         des = new XVideoWidget(XVideoUIClass);
         des->setObjectName(QStringLiteral("des"));
         des->setGeometry(QRect(590, 20, 560, 452));
+        exportButton = new QPushButton(XVideoUIClass);
+        exportButton->setObjectName(QStringLiteral("exportButton"));
+        exportButton->setGeometry(QRect(760, 490, 93, 31));
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
@@ -119,6 +123,7 @@ public:
         QObject::connect(playSlider, SIGNAL(sliderReleased()), XVideoUIClass, SLOT(sliderRelease()));
         QObject::connect(playSlider, SIGNAL(sliderMoved(int)), XVideoUIClass, SLOT(setPos(int)));
         QObject::connect(setButton, SIGNAL(clicked()), XVideoUIClass, SLOT(set()));
+        QObject::connect(exportButton, SIGNAL(clicked()), XVideoUIClass, SLOT(exportVideo()));
 
         QMetaObject::connectSlotsByName(XVideoUIClass);
     } // setupUi
@@ -131,6 +136,7 @@ public:
         label->setText(QApplication::translate("XVideoUIClass", "\344\272\256\345\272\246[0-100]", Q_NULLPTR));
         label_2->setText(QApplication::translate("XVideoUIClass", "\345\257\271\346\257\224\345\272\246[1.0-3.0]", Q_NULLPTR));
         setButton->setText(QApplication::translate("XVideoUIClass", "\350\256\276\347\275\256", Q_NULLPTR));
+        exportButton->setText(QApplication::translate("XVideoUIClass", "\345\257\274\345\207\272", Q_NULLPTR));
     } // retranslateUi
 
 };

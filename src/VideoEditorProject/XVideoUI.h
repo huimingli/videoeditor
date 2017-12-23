@@ -18,6 +18,11 @@ public slots:
 	void setPos(int pos);
 	//设置过滤器
 	void set();
+
+	void exportVideo();
+
+	//导出结束
+	void exportEnd();
 private:
 	Ui::XVideoUIClass ui;
 };
