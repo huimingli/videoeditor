@@ -124,6 +124,12 @@ void XVideoThread::run()
 			msleep(5);
 			continue;
 		}
+
+		if (!isPlay) {
+			mutex.unlock();
+			msleep(5);
+			continue;
+		}
 		//读取一帧视频，解码并颜色转换
 		if (!cap1.read(mat1)|| mat1.empty()) {
 			mutex.unlock();	 

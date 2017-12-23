@@ -17,6 +17,18 @@ public:
 
 	bool open(const std::string file);
 
+	void play() {
+		mutex.lock();
+		isPlay = true;
+		mutex.unlock();
+	}
+
+	void pause() {
+		mutex.lock();
+		isPlay = false;
+		mutex.unlock();
+	}
+
 	double getPos();//返回当前播放的位置
 
 	//视频跳转
@@ -33,14 +45,16 @@ public:
 
 	void run();
 
-	void saveEnd();
 signals:
 	void viewImage1(cv::Mat);
 
 	void viewDes(cv::Mat);
+
+	void saveEnd();
 protected:
 	//是否开始写视频
 	bool isWrite = false;
+	bool isPlay = false;
 	QMutex mutex;
 	XVideoThread();
 };

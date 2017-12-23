@@ -38,6 +38,8 @@ public:
     QPushButton *setButton;
     XVideoWidget *des;
     QPushButton *exportButton;
+    QPushButton *playButton;
+    QPushButton *pauseButton;
 
     void setupUi(QWidget *XVideoUIClass)
     {
@@ -76,7 +78,22 @@ public:
 "font: 75 12pt \"\351\273\221\344\275\223"
                         "\";\n"
 "color: rgb(255, 255, 255);\n"
-"}"));
+"}\n"
+"#playButton{background-color: rgba(255, 255, 255,0);}\n"
+"\n"
+"#playButton:hover{image: url(:/XVideoUI/Resources/PlayN.png);}\n"
+"\n"
+"#playButton:!hover{image: url(:/XVideoUI/Resources/PlayH.png);}\n"
+"\n"
+"#playButton:pressed{image: url(:/XVideoUI/Resources/PlayP.png);}\n"
+"\n"
+"#pauseButton{background-color: rgba(255, 255, 255,0);}\n"
+"\n"
+"#pauseButton:hover{image: url(:/XVideoUI/Resources/PauseN.png);}\n"
+"\n"
+"#pauseButton:!hover{image: url(:/XVideoUI/Resources/PauseH.png);}\n"
+"\n"
+"#pauseButton:pressed{image: url(:/XVideoUI/Resources/PauseP.png);}"));
         closeButton = new QPushButton(XVideoUIClass);
         closeButton->setObjectName(QStringLiteral("closeButton"));
         closeButton->setGeometry(QRect(1170, 10, 31, 21));
@@ -115,6 +132,12 @@ public:
         exportButton = new QPushButton(XVideoUIClass);
         exportButton->setObjectName(QStringLiteral("exportButton"));
         exportButton->setGeometry(QRect(760, 490, 93, 31));
+        playButton = new QPushButton(XVideoUIClass);
+        playButton->setObjectName(QStringLiteral("playButton"));
+        playButton->setGeometry(QRect(240, 540, 121, 51));
+        pauseButton = new QPushButton(XVideoUIClass);
+        pauseButton->setObjectName(QStringLiteral("pauseButton"));
+        pauseButton->setGeometry(QRect(390, 540, 121, 51));
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
@@ -124,6 +147,8 @@ public:
         QObject::connect(playSlider, SIGNAL(sliderMoved(int)), XVideoUIClass, SLOT(setPos(int)));
         QObject::connect(setButton, SIGNAL(clicked()), XVideoUIClass, SLOT(set()));
         QObject::connect(exportButton, SIGNAL(clicked()), XVideoUIClass, SLOT(exportVideo()));
+        QObject::connect(playButton, SIGNAL(clicked()), XVideoUIClass, SLOT(play()));
+        QObject::connect(pauseButton, SIGNAL(clicked()), XVideoUIClass, SLOT(pause()));
 
         QMetaObject::connectSlotsByName(XVideoUIClass);
     } // setupUi
@@ -137,6 +162,8 @@ public:
         label_2->setText(QApplication::translate("XVideoUIClass", "\345\257\271\346\257\224\345\272\246[1.0-3.0]", Q_NULLPTR));
         setButton->setText(QApplication::translate("XVideoUIClass", "\350\256\276\347\275\256", Q_NULLPTR));
         exportButton->setText(QApplication::translate("XVideoUIClass", "\345\257\274\345\207\272", Q_NULLPTR));
+        playButton->setText(QString());
+        pauseButton->setText(QString());
     } // retranslateUi
 
 };

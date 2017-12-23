@@ -45,7 +45,22 @@ QLabel
 {
 font: 75 12pt &quot;黑体&quot;;
 color: rgb(255, 255, 255);
-}</string>
+}
+#playButton{background-color: rgba(255, 255, 255,0);}
+
+#playButton:hover{image: url(:/XVideoUI/Resources/PlayN.png);}
+
+#playButton:!hover{image: url(:/XVideoUI/Resources/PlayH.png);}
+
+#playButton:pressed{image: url(:/XVideoUI/Resources/PlayP.png);}
+
+#pauseButton{background-color: rgba(255, 255, 255,0);}
+
+#pauseButton:hover{image: url(:/XVideoUI/Resources/PauseN.png);}
+
+#pauseButton:!hover{image: url(:/XVideoUI/Resources/PauseH.png);}
+
+#pauseButton:pressed{image: url(:/XVideoUI/Resources/PauseP.png);}</string>
   </property>
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
@@ -190,6 +205,32 @@ color: rgb(255, 255, 255);
     <string>导出</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="playButton">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>540</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pauseButton">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>540</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -315,6 +356,38 @@ color: rgb(255, 255, 255);
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>playButton</sender>
+   <signal>clicked()</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>play()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>305</x>
+     <y>562</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>307</x>
+     <y>-18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pauseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>pause()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>431</x>
+     <y>563</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>367</x>
+     <y>-24</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>set()</slot>
@@ -322,5 +395,7 @@ color: rgb(255, 255, 255);
   <slot>sliderRelease()</slot>
   <slot>setPos(int)</slot>
   <slot>exportVideo()</slot>
+  <slot>play()</slot>
+  <slot>pause()</slot>
  </slots>
 </ui>

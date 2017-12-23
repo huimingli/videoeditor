@@ -31,6 +31,9 @@ XVideoUI::XVideoUI(QWidget *parent)
 		this,//槽接收的对象
 		SLOT(exportEnd())//槽
 	);
+
+	pause();
+
 	startTimer(40);//启动计时器
 }
 void XVideoUI::open() {
@@ -99,8 +102,25 @@ void XVideoUI::exportVideo()
 	}
 }
 
+//槽，视频导出结束时接收信息
 void XVideoUI::exportEnd()
 {
 	isExport = false;
 	ui.exportButton->setText("start export");
+}
+
+void XVideoUI::play()
+{
+	ui.pauseButton->show();
+	ui.pauseButton->setGeometry(ui.playButton->geometry());
+	ui.playButton->hide();
+	XVideoThread::Get()->play();
+}
+
+void XVideoUI::pause()
+{
+	ui.playButton->show();
+	ui.playButton->setGeometry(ui.pauseButton->geometry());
+	ui.pauseButton->hide();
+	XVideoThread::Get()->pause();
 }

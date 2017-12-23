@@ -23,6 +23,12 @@ public slots:
 
 	//导出结束
 	void exportEnd();
+
+	//视频播放
+	void play();
+
+	//视频暂停
+	void pause();
 private:
 	Ui::XVideoUIClass ui;
 };
