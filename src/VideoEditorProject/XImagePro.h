@@ -36,6 +36,12 @@ public:
 
 	void resize(int width, int height);
 
+
+	//Í¼Ïñ½ð×ÖËþ
+	void pyDown(int count);
+
+	void pyUp(int count);
+
 	XImagePro();
 
 	~XImagePro();

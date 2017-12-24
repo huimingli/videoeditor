@@ -1,5 +1,6 @@
 #include "XImagePro.h"
 #include<opencv2/imgproc.hpp>
+#include<opencv2\imgcodecs.hpp>
 void XImagePro::gain(double bright, double contrast)
 {
 	if (des.empty()) return;
@@ -58,6 +59,22 @@ void XImagePro::resize(int width, int height)
 {
 	if (des.empty()) return;
 	cv::resize(des, des, cv::Size(width, height));
+}
+
+void XImagePro::pyDown(int count)
+{
+	if (des.empty()) return;
+	for (int i = 0; i < count; i++) {
+		cv::pyrDown(des, des);
+	}
+}
+
+void XImagePro::pyUp(int count)
+{
+	if (des.empty()) return;
+	for (int i = 0; i < count; i++) {
+		cv::pyrUp(des, des);
+	}
 }
 
 XImagePro::XImagePro()

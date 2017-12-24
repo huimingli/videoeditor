@@ -45,6 +45,12 @@ public:
     QComboBox *rotate;
     QLabel *label_4;
     QComboBox *flip;
+    QLabel *label_5;
+    QSpinBox *width;
+    QSpinBox *height;
+    QSpinBox *pyup;
+    QSpinBox *pydown;
+    QLabel *label_6;
 
     void setupUi(QWidget *XVideoUIClass)
     {
@@ -156,6 +162,29 @@ public:
         flip = new QComboBox(XVideoUIClass);
         flip->setObjectName(QStringLiteral("flip"));
         flip->setGeometry(QRect(740, 650, 87, 22));
+        label_5 = new QLabel(XVideoUIClass);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(590, 700, 121, 21));
+        width = new QSpinBox(XVideoUIClass);
+        width->setObjectName(QStringLiteral("width"));
+        width->setGeometry(QRect(730, 700, 121, 22));
+        width->setMaximum(9999);
+        height = new QSpinBox(XVideoUIClass);
+        height->setObjectName(QStringLiteral("height"));
+        height->setGeometry(QRect(850, 700, 121, 22));
+        height->setMaximum(99999);
+        pyup = new QSpinBox(XVideoUIClass);
+        pyup->setObjectName(QStringLiteral("pyup"));
+        pyup->setGeometry(QRect(850, 740, 121, 22));
+        pyup->setMaximum(100);
+        pyup->setValue(0);
+        pydown = new QSpinBox(XVideoUIClass);
+        pydown->setObjectName(QStringLiteral("pydown"));
+        pydown->setGeometry(QRect(730, 740, 121, 22));
+        pydown->setMaximum(100);
+        label_6 = new QLabel(XVideoUIClass);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(440, 740, 271, 21));
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
@@ -198,6 +227,8 @@ public:
          << QApplication::translate("XVideoUIClass", "\345\267\246\345\217\263\351\225\234\345\203\217", Q_NULLPTR)
          << QApplication::translate("XVideoUIClass", "\344\270\212\344\270\213\345\267\246\345\217\263\351\225\234\345\203\217", Q_NULLPTR)
         );
+        label_5->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\345\260\272\345\257\270W,H", Q_NULLPTR));
+        label_6->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\351\207\221\345\255\227\345\241\224\357\274\210\351\253\230\346\226\257\357\274\214\346\213\211\346\231\256\346\213\211\346\226\257\357\274\211", Q_NULLPTR));
     } // retranslateUi
 
 };

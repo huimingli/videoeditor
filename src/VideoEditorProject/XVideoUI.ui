@@ -336,8 +336,8 @@ color: rgb(255, 255, 255);
   <widget class="QSpinBox" name="width">
    <property name="geometry">
     <rect>
-     <x>740</x>
-     <y>690</y>
+     <x>730</x>
+     <y>700</y>
      <width>121</width>
      <height>22</height>
     </rect>
@@ -349,14 +349,56 @@ color: rgb(255, 255, 255);
   <widget class="QSpinBox" name="height">
    <property name="geometry">
     <rect>
-     <x>740</x>
-     <y>710</y>
+     <x>850</x>
+     <y>700</y>
      <width>121</width>
      <height>22</height>
     </rect>
    </property>
    <property name="maximum">
     <number>99999</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="pyup">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>740</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="pydown">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>740</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>740</y>
+     <width>271</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>图像金字塔（高斯，拉普拉斯）</string>
    </property>
   </widget>
  </widget>

@@ -12,7 +12,9 @@ enum XTaskType {
 	XTASK_FLIPX,
 	XTASK_FLIPY,
 	XTASK_FLIPXY,
-	XTASK_RESIZE
+	XTASK_RESIZE,
+	XTASK_PYDOWN,
+	XTASK_PYUP,
 };
 struct XTask {
 	XTaskType type;

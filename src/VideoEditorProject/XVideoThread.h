@@ -8,6 +8,8 @@ class XVideoThread:public QThread
 	Q_OBJECT
 public:
 	int fps = 0;
+	int width = 0;
+	int height = 0;
 	static XVideoThread * Get() {
 		static XVideoThread vt;
 		return &vt;

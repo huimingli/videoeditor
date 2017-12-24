@@ -38,6 +38,12 @@ public:
 			case XTASK_RESIZE:
 				p.resize(tasks[i].para[0], tasks[i].para[1]);
 				break;
+			case XTASK_PYDOWN:
+				p.pyDown(tasks[i].para[0]);
+				break;
+			case XTASK_PYUP:
+				p.pyUp(tasks[i].para[0]);
+				break;
 			default:
 				break;
 			}
