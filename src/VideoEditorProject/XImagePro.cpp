@@ -77,6 +77,16 @@ void XImagePro::pyUp(int count)
 	}
 }
 
+void XImagePro::clip(int x, int y, int w, int h)
+{
+	if (des.empty()) return;
+	if (x < 0 || y < 0 || w <= 0 || h <= 0)
+		return;
+	if (x > des.cols || y > des.rows)
+		return;
+	des = des(cv::Rect(x, y, w, h));
+}
+
 XImagePro::XImagePro()
 {
 }

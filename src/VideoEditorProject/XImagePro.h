@@ -42,6 +42,9 @@ public:
 
 	void pyUp(int count);
 
+    // ”∆µ≤√ºÙ
+	void clip(int x, int y, int w, int h);
+
 	XImagePro();
 
 	~XImagePro();

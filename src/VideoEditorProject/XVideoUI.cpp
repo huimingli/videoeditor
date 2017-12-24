@@ -76,6 +76,20 @@ void XVideoUI::setPos(int pos)
 void XVideoUI::set()
 {
 	XFilter::Get()->clear();
+	//视频图像的裁剪
+	bool isClip = false;
+	double cx = ui.cx->value();
+	double cy = ui.cy->value();
+	double cw = ui.cw->value();
+	double ch = ui.ch->value();
+
+	if (cx + cy + cw + ch > 0.0001) {
+		isClip = true;
+		XFilter::Get()->addTask(XTask{ XTASK_CLIP,{ cx,cy,cw,ch } });
+		double w = XVideoThread::Get()->width;
+		double h = XVideoThread::Get()->height;
+		XFilter::Get()->addTask(XTask{ XTASK_RESIZE,{ w,h } });
+	}
 	bool isPy = false;
 	int down = ui.pydown->value();
 	int up = ui.pyup->value();
@@ -106,7 +120,7 @@ void XVideoUI::set()
 	//调整视频的尺寸
 	double w = ui.width->value();
 	double h = ui.height->value();
-	if (!isPy && w > 0 && h > 0) {
+	if (!isClip&&!isPy && w > 0 && h > 0) {
 		XFilter::Get()->addTask(XTask{ XTASK_RESIZE,{ w,h } });
 	}
 	//对比度和亮度的设置

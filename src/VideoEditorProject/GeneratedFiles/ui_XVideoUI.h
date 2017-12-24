@@ -51,6 +51,11 @@ public:
     QSpinBox *pyup;
     QSpinBox *pydown;
     QLabel *label_6;
+    QLabel *label_7;
+    QSpinBox *cx;
+    QSpinBox *cy;
+    QSpinBox *cw;
+    QSpinBox *ch;
 
     void setupUi(QWidget *XVideoUIClass)
     {
@@ -185,6 +190,25 @@ public:
         label_6 = new QLabel(XVideoUIClass);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setGeometry(QRect(440, 740, 271, 21));
+        label_7 = new QLabel(XVideoUIClass);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setGeometry(QRect(440, 780, 271, 21));
+        cx = new QSpinBox(XVideoUIClass);
+        cx->setObjectName(QStringLiteral("cx"));
+        cx->setGeometry(QRect(730, 780, 61, 22));
+        cx->setMaximum(9999);
+        cy = new QSpinBox(XVideoUIClass);
+        cy->setObjectName(QStringLiteral("cy"));
+        cy->setGeometry(QRect(790, 780, 61, 22));
+        cy->setMaximum(9999);
+        cw = new QSpinBox(XVideoUIClass);
+        cw->setObjectName(QStringLiteral("cw"));
+        cw->setGeometry(QRect(850, 780, 61, 22));
+        cw->setMaximum(9999);
+        ch = new QSpinBox(XVideoUIClass);
+        ch->setObjectName(QStringLiteral("ch"));
+        ch->setGeometry(QRect(910, 780, 61, 22));
+        ch->setMaximum(9999);
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
@@ -229,6 +253,7 @@ public:
         );
         label_5->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\345\260\272\345\257\270W,H", Q_NULLPTR));
         label_6->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\351\207\221\345\255\227\345\241\224\357\274\210\351\253\230\346\226\257\357\274\214\346\213\211\346\231\256\346\213\211\346\226\257\357\274\211", Q_NULLPTR));
+        label_7->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\350\243\201\345\211\252(x,y,width,height)", Q_NULLPTR));
     } // retranslateUi
 
 };

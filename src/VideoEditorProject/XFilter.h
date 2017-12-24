@@ -15,6 +15,7 @@ enum XTaskType {
 	XTASK_RESIZE,
 	XTASK_PYDOWN,
 	XTASK_PYUP,
+	XTASK_CLIP
 };
 struct XTask {
 	XTaskType type;
