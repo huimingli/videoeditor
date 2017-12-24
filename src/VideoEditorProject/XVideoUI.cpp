@@ -4,9 +4,15 @@
 #include<qmessagebox.h>
 #include"XVideoThread.h"
 #include"XFilter.h"
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
 using namespace std;
 static bool pressSlider = false;
 static bool isExport = false;
+static bool isColor = true;
+static bool isMark = false;
+static bool isBlend = false;
+static bool isMerge = false;
 XVideoUI::XVideoUI(QWidget *parent)
 	: QWidget(parent)
 {
@@ -18,6 +24,9 @@ XVideoUI::XVideoUI(QWidget *parent)
 		ui.src1Video,//槽接收的对象
 		SLOT(setImage(cv::Mat))//槽
 		);
+
+	
+
 	//输出视频显示信号
 	QObject::connect(XVideoThread::Get(),//信号发出的对象
 		SIGNAL(viewDes(cv::Mat)),//信号
@@ -31,7 +40,11 @@ XVideoUI::XVideoUI(QWidget *parent)
 		this,//槽接收的对象
 		SLOT(exportEnd())//槽
 	);
-
+	QObject::connect(XVideoThread::Get(),//信号发出的对象
+		SIGNAL(viewImage2(cv::Mat)),//信号
+		ui.src2Video,//槽接收的对象
+		SLOT(setImage(cv::Mat))//槽
+	);
 	pause();
 
 	startTimer(40);//启动计时器
@@ -76,6 +89,7 @@ void XVideoUI::setPos(int pos)
 void XVideoUI::set()
 {
 	XFilter::Get()->clear();
+	isColor = true;
 	//视频图像的裁剪
 	bool isClip = false;
 	double cx = ui.cx->value();
@@ -120,7 +134,7 @@ void XVideoUI::set()
 	//调整视频的尺寸
 	double w = ui.width->value();
 	double h = ui.height->value();
-	if (!isClip&&!isPy && w > 0 && h > 0) {
+	if (!isMerge&&!isClip&&!isPy && w > 0 && h > 0) {
 		XFilter::Get()->addTask(XTask{ XTASK_RESIZE,{ w,h } });
 	}
 	//对比度和亮度的设置
@@ -128,6 +142,12 @@ void XVideoUI::set()
 		ui.contrast->value() >1) {
 		XFilter::Get()->addTask(XTask{ XTASK_GAIN,{(double)(ui.bright->value()),ui.contrast->value()} });
 	}
+	//灰度图
+	if (ui.color->currentIndex() == 1) {
+		isColor = false;
+		XFilter::Get()->addTask(XTask{ XTASK_GRAY });
+	}
+	 
 	//图像旋转 1 90 2 180 3 270
 	if (ui.rotate->currentIndex() == 1) {
 		XFilter::Get()->addTask(XTask{XTASK_ROTATE_90});
@@ -150,8 +170,28 @@ void XVideoUI::set()
 		XFilter::Get()->addTask(XTask{ XTASK_FLIPXY });
 	}
 	 
-	
+	//水印
+	if (isMark) {
+		double x = ui.mx->value();
+		double y = ui.my->value();
+		double a = ui.ma->value();
+		XFilter::Get()->addTask(XTask{ XTASK_MARK,{x,y,a} });
+	}
 
+	if (isBlend) {
+		double a = ui.ba->value();
+		XFilter::Get()->addTask(XTask{ XTASK_BLEND,{ a } });
+	}
+
+	if (isMerge) {
+		double h2 = XVideoThread::Get()->height2;
+		double h1 = XVideoThread::Get()->height;
+		int w = XVideoThread::Get()->width2 * (h2 / h1);
+		XFilter::Get()->addTask(XTask{ XTASK_MERGE });
+		ui.width->setValue(XVideoThread::Get()->width + w);
+		ui.height->setValue(h1);
+		//ui.width->setValue();
+	}
 }
 void XVideoUI::exportVideo()
 {
@@ -169,7 +209,7 @@ void XVideoUI::exportVideo()
 	if (name.isEmpty())
 		return;
 	std::string filename = name.toLocal8Bit().data();
-	if (XVideoThread::Get()->startSave(filename,w,h)) {
+	if (XVideoThread::Get()->startSave(filename,w,h,isColor)) {
 		isExport = true;
 		ui.exportButton->setText("stop export");
 	}
@@ -196,4 +236,44 @@ void XVideoUI::pause()
 	ui.playButton->setGeometry(ui.pauseButton->geometry());
 	ui.pauseButton->hide();
 	XVideoThread::Get()->pause();
+}
+
+void XVideoUI::mark()
+{
+	isMark = false;
+	isBlend = false;
+	isMerge = false;
+	QString name = QFileDialog::getOpenFileName(this, "select image:");
+	if (name.isEmpty())
+		return;
+	std::string file = name.toLocal8Bit().data();
+	cv::Mat mark = cv::imread(file);
+	if (mark.empty())
+		return;
+	XVideoThread::Get()->setMark(mark);
+	isMark = true;
+}
+
+void XVideoUI::blend()
+{
+	isMark = false;
+	isBlend = false;
+	isMerge = false;
+	QString name = QFileDialog::getOpenFileName(this, "select video:");
+	if (name.isEmpty())
+		return;
+	std::string file = name.toLocal8Bit().data();
+	isBlend = XVideoThread::Get()->open2(file);
+}
+
+void XVideoUI::merge()
+{
+	isMark = false;
+	isBlend = false;
+	isMerge = false;
+	QString name = QFileDialog::getOpenFileName(this, "select video:");
+	if (name.isEmpty())
+		return;
+	std::string file = name.toLocal8Bit().data();
+	isMerge = XVideoThread::Get()->open2(file);
 }

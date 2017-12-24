@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_XVideoUI_t {
-    QByteArrayData data[12];
-    char stringdata0[89];
+    QByteArrayData data[15];
+    char stringdata0[106];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,12 +42,15 @@ QT_MOC_LITERAL(7, 52, 3), // "set"
 QT_MOC_LITERAL(8, 56, 11), // "exportVideo"
 QT_MOC_LITERAL(9, 68, 9), // "exportEnd"
 QT_MOC_LITERAL(10, 78, 4), // "play"
-QT_MOC_LITERAL(11, 83, 5) // "pause"
+QT_MOC_LITERAL(11, 83, 5), // "pause"
+QT_MOC_LITERAL(12, 89, 4), // "mark"
+QT_MOC_LITERAL(13, 94, 5), // "blend"
+QT_MOC_LITERAL(14, 100, 5) // "merge"
 
     },
     "XVideoUI\0open\0\0sliderPress\0sliderRelease\0"
     "setPos\0pos\0set\0exportVideo\0exportEnd\0"
-    "play\0pause"
+    "play\0pause\0mark\0blend\0merge"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,7 +60,7 @@ static const uint qt_meta_data_XVideoUI[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,21 +68,27 @@ static const uint qt_meta_data_XVideoUI[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x0a /* Public */,
-       3,    0,   60,    2, 0x0a /* Public */,
-       4,    0,   61,    2, 0x0a /* Public */,
-       5,    1,   62,    2, 0x0a /* Public */,
-       7,    0,   65,    2, 0x0a /* Public */,
-       8,    0,   66,    2, 0x0a /* Public */,
-       9,    0,   67,    2, 0x0a /* Public */,
-      10,    0,   68,    2, 0x0a /* Public */,
-      11,    0,   69,    2, 0x0a /* Public */,
+       1,    0,   74,    2, 0x0a /* Public */,
+       3,    0,   75,    2, 0x0a /* Public */,
+       4,    0,   76,    2, 0x0a /* Public */,
+       5,    1,   77,    2, 0x0a /* Public */,
+       7,    0,   80,    2, 0x0a /* Public */,
+       8,    0,   81,    2, 0x0a /* Public */,
+       9,    0,   82,    2, 0x0a /* Public */,
+      10,    0,   83,    2, 0x0a /* Public */,
+      11,    0,   84,    2, 0x0a /* Public */,
+      12,    0,   85,    2, 0x0a /* Public */,
+      13,    0,   86,    2, 0x0a /* Public */,
+      14,    0,   87,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    6,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -104,6 +113,9 @@ void XVideoUI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 6: _t->exportEnd(); break;
         case 7: _t->play(); break;
         case 8: _t->pause(); break;
+        case 9: _t->mark(); break;
+        case 10: _t->blend(); break;
+        case 11: _t->merge(); break;
         default: ;
         }
     }
@@ -134,13 +146,13 @@ int XVideoUI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 12;
     }
     return _id;
 }

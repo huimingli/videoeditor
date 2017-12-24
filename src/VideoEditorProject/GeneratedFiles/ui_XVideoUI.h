@@ -56,6 +56,15 @@ public:
     QSpinBox *cy;
     QSpinBox *cw;
     QSpinBox *ch;
+    QComboBox *color;
+    QPushButton *markButton;
+    QDoubleSpinBox *mx;
+    QDoubleSpinBox *my;
+    QDoubleSpinBox *ma;
+    XVideoWidget *src2Video;
+    QPushButton *blendButton;
+    QDoubleSpinBox *ba;
+    QPushButton *merge;
 
     void setupUi(QWidget *XVideoUIClass)
     {
@@ -151,10 +160,10 @@ public:
         exportButton->setGeometry(QRect(760, 490, 93, 31));
         playButton = new QPushButton(XVideoUIClass);
         playButton->setObjectName(QStringLiteral("playButton"));
-        playButton->setGeometry(QRect(220, 540, 51, 51));
+        playButton->setGeometry(QRect(210, 520, 51, 51));
         pauseButton = new QPushButton(XVideoUIClass);
         pauseButton->setObjectName(QStringLiteral("pauseButton"));
-        pauseButton->setGeometry(QRect(280, 540, 51, 51));
+        pauseButton->setGeometry(QRect(270, 520, 51, 51));
         label_3 = new QLabel(XVideoUIClass);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(630, 610, 81, 21));
@@ -209,6 +218,41 @@ public:
         ch->setObjectName(QStringLiteral("ch"));
         ch->setGeometry(QRect(910, 780, 61, 22));
         ch->setMaximum(9999);
+        color = new QComboBox(XVideoUIClass);
+        color->setObjectName(QStringLiteral("color"));
+        color->setGeometry(QRect(930, 610, 87, 22));
+        markButton = new QPushButton(XVideoUIClass);
+        markButton->setObjectName(QStringLiteral("markButton"));
+        markButton->setGeometry(QRect(20, 550, 121, 41));
+        mx = new QDoubleSpinBox(XVideoUIClass);
+        mx->setObjectName(QStringLiteral("mx"));
+        mx->setGeometry(QRect(170, 570, 81, 22));
+        mx->setMaximum(3);
+        mx->setValue(1);
+        my = new QDoubleSpinBox(XVideoUIClass);
+        my->setObjectName(QStringLiteral("my"));
+        my->setGeometry(QRect(250, 570, 81, 22));
+        my->setMaximum(3);
+        my->setValue(1);
+        ma = new QDoubleSpinBox(XVideoUIClass);
+        ma->setObjectName(QStringLiteral("ma"));
+        ma->setGeometry(QRect(330, 570, 81, 22));
+        ma->setMaximum(3);
+        ma->setValue(1);
+        src2Video = new XVideoWidget(XVideoUIClass);
+        src2Video->setObjectName(QStringLiteral("src2Video"));
+        src2Video->setGeometry(QRect(30, 600, 236, 212));
+        blendButton = new QPushButton(XVideoUIClass);
+        blendButton->setObjectName(QStringLiteral("blendButton"));
+        blendButton->setGeometry(QRect(290, 600, 93, 31));
+        ba = new QDoubleSpinBox(XVideoUIClass);
+        ba->setObjectName(QStringLiteral("ba"));
+        ba->setGeometry(QRect(410, 600, 81, 22));
+        ba->setMaximum(3);
+        ba->setValue(1);
+        merge = new QPushButton(XVideoUIClass);
+        merge->setObjectName(QStringLiteral("merge"));
+        merge->setGeometry(QRect(290, 650, 93, 31));
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
@@ -219,7 +263,9 @@ public:
         QObject::connect(setButton, SIGNAL(clicked()), XVideoUIClass, SLOT(set()));
         QObject::connect(exportButton, SIGNAL(clicked()), XVideoUIClass, SLOT(exportVideo()));
         QObject::connect(playButton, SIGNAL(clicked()), XVideoUIClass, SLOT(play()));
-        QObject::connect(pauseButton, SIGNAL(clicked()), XVideoUIClass, SLOT(pause()));
+        QObject::connect(markButton, SIGNAL(clicked()), XVideoUIClass, SLOT(mark()));
+        QObject::connect(blendButton, SIGNAL(clicked()), XVideoUIClass, SLOT(blend()));
+        QObject::connect(merge, SIGNAL(clicked()), XVideoUIClass, SLOT(merge()));
 
         QMetaObject::connectSlotsByName(XVideoUIClass);
     } // setupUi
@@ -254,6 +300,14 @@ public:
         label_5->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\345\260\272\345\257\270W,H", Q_NULLPTR));
         label_6->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\351\207\221\345\255\227\345\241\224\357\274\210\351\253\230\346\226\257\357\274\214\346\213\211\346\231\256\346\213\211\346\226\257\357\274\211", Q_NULLPTR));
         label_7->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\350\243\201\345\211\252(x,y,width,height)", Q_NULLPTR));
+        color->clear();
+        color->insertItems(0, QStringList()
+         << QApplication::translate("XVideoUIClass", "RGB\345\233\276\345\203\217", Q_NULLPTR)
+         << QApplication::translate("XVideoUIClass", "\347\201\260\345\272\246\345\233\276", Q_NULLPTR)
+        );
+        markButton->setText(QApplication::translate("XVideoUIClass", "\346\260\264\345\215\260(x,y,a)", Q_NULLPTR));
+        blendButton->setText(QApplication::translate("XVideoUIClass", "\350\236\215\345\220\210", Q_NULLPTR));
+        merge->setText(QApplication::translate("XVideoUIClass", "\345\220\210\345\271\266", Q_NULLPTR));
     } // retranslateUi
 
 };

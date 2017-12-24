@@ -45,6 +45,18 @@ public:
     //视频裁剪
 	void clip(int x, int y, int w, int h);
 
+	//转为灰度图
+	void gray();
+
+	//添加水印
+	void mark(int x, int y, double a);
+
+	//融合
+	void blend(double alpha);
+
+	//合并
+	void merge();
+
 	XImagePro();
 
 	~XImagePro();

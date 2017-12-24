@@ -211,8 +211,8 @@ color: rgb(255, 255, 255);
   <widget class="QPushButton" name="playButton">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>540</y>
+     <x>210</x>
+     <y>520</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -224,8 +224,8 @@ color: rgb(255, 255, 255);
   <widget class="QPushButton" name="pauseButton">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>540</y>
+     <x>270</x>
+     <y>520</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -466,6 +466,139 @@ color: rgb(255, 255, 255);
     <number>9999</number>
    </property>
   </widget>
+  <widget class="QComboBox" name="color">
+   <property name="geometry">
+    <rect>
+     <x>930</x>
+     <y>610</y>
+     <width>87</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>RGB图像</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>灰度图</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="markButton">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>550</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>水印(x,y,a)</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="mx">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>570</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <double>3.000000000000000</double>
+   </property>
+   <property name="value">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="my">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>570</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <double>3.000000000000000</double>
+   </property>
+   <property name="value">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="ma">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>570</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <double>3.000000000000000</double>
+   </property>
+   <property name="value">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="XVideoWidget" name="src2Video">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>600</y>
+     <width>236</width>
+     <height>212</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="blendButton">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>600</y>
+     <width>93</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>融合</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="ba">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>600</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <double>3.000000000000000</double>
+   </property>
+   <property name="value">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="merge">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>650</y>
+     <width>93</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>合并</string>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -598,8 +731,8 @@ color: rgb(255, 255, 255);
    <slot>play()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>305</x>
-     <y>562</y>
+     <x>260</x>
+     <y>542</y>
     </hint>
     <hint type="destinationlabel">
      <x>307</x>
@@ -608,18 +741,50 @@ color: rgb(255, 255, 255);
    </hints>
   </connection>
   <connection>
-   <sender>pauseButton</sender>
+   <sender>markButton</sender>
    <signal>clicked()</signal>
    <receiver>XVideoUIClass</receiver>
-   <slot>pause()</slot>
+   <slot>mark()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>431</x>
-     <y>563</y>
+     <x>103</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
-     <x>367</x>
-     <y>-24</y>
+     <x>172</x>
+     <y>-27</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blendButton</sender>
+   <signal>clicked()</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>blend()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>347</x>
+     <y>612</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>-19</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>merge</sender>
+   <signal>clicked()</signal>
+   <receiver>XVideoUIClass</receiver>
+   <slot>merge()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>315</x>
+     <y>666</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>-27</y>
     </hint>
    </hints>
   </connection>
@@ -632,5 +797,8 @@ color: rgb(255, 255, 255);
   <slot>exportVideo()</slot>
   <slot>play()</slot>
   <slot>pause()</slot>
+  <slot>mark()</slot>
+  <slot>blend()</slot>
+  <slot>merge()</slot>
  </slots>
 </ui>

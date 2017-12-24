@@ -8,6 +8,7 @@ using namespace std;
 using namespace cv;
 //一号视频源
 static VideoCapture cap1;
+static VideoCapture cap2;
 static bool isExit = false;
 
 static VideoWriter vw;
@@ -29,8 +30,9 @@ XVideoThread::~XVideoThread()
 
 bool XVideoThread::open(const std::string file)
 {
+	seek(0);
 	mutex.lock();
-	int re = cap1.open(file);
+	bool re = cap1.open(file);
 	mutex.unlock();
 	if (!re) {
 		return re;
@@ -39,6 +41,24 @@ bool XVideoThread::open(const std::string file)
 	width = cap1.get(CAP_PROP_FRAME_WIDTH);
 	height = cap1.get(CAP_PROP_FRAME_HEIGHT);
 	if (fps <= 0) fps = 25;
+	return true;
+}
+
+bool XVideoThread::open2(const std::string file)
+{
+	seek(0);
+	mutex.lock();
+	int re = cap2.open(file);
+	mutex.unlock();
+	if (!re) {
+		return re;
+	}
+	width2 = cap2.get(CAP_PROP_FRAME_WIDTH);
+	height2= cap2.get(CAP_PROP_FRAME_HEIGHT);
+	//fps = cap21.get(CAP_PROP_FPS);
+	//width = cap2.get(CAP_PROP_FRAME_WIDTH);
+	//height = cap2.get(CAP_PROP_FRAME_HEIGHT);
+	//if (fps <= 0) fps = 25;
 	return true;
 }
 
@@ -66,6 +86,9 @@ bool XVideoThread::seek(int frame)
 		return false;
 	}
 	int re = cap1.set(CAP_PROP_POS_FRAMES, frame);
+	if (cap2.isOpened()) {
+		cap2.set(CAP_PROP_POS_FRAMES, frame);
+	}
 	mutex.unlock();
 	return re;
 }
@@ -78,7 +101,7 @@ bool XVideoThread::seek(double pos)
 	 
 }
 
-bool XVideoThread::startSave(const std::string filename, int width, int height)
+bool XVideoThread::startSave(const std::string filename, int width, int height, bool isColor)
 {
 	cout << "startSave export int" << endl;
 	seek(0);
@@ -93,7 +116,7 @@ bool XVideoThread::startSave(const std::string filename, int width, int height)
 		height = cap1.get(CAP_PROP_FRAME_HEIGHT);
 	vw.open(filename, 
 		VideoWriter::fourcc('X', '2', '6', '4'),
-		fps,Size(width,height));
+		fps,Size(width,height),isColor);
 	if (!vw.isOpened()) {
 		cout << "start save failed" << endl;
 	 }
@@ -108,6 +131,13 @@ void XVideoThread::stopSave()
 	mutex.lock();
 	vw.release();
 	isWrite = false;
+	mutex.unlock();
+}
+
+void XVideoThread::setMark(Mat m)
+{
+	mutex.lock();	
+	this->mark = m;
 	mutex.unlock();
 }
 
@@ -142,11 +172,19 @@ void XVideoThread::run()
 			msleep(5);
 			continue;
 		}
+		Mat mat2 = mark;
+		if (cap2.isOpened()) {
+			cap2.read(mat2);
+		}
 		//显示图像1
-		if (!isWrite)
-		    viewImage1(mat1);
+		if (!isWrite) {
+            viewImage1(mat1);
+			if(!mat2.empty())
+			    viewImage2(mat2);
+		}
+		   
 		//通过过滤器处理视频
-		Mat des = XFilter::Get()->filter(mat1, Mat());
+		Mat des = XFilter::Get()->filter(mat1, mat2);
 		//把结果显示出来
 		if (!isWrite)
 		    viewDes(des);

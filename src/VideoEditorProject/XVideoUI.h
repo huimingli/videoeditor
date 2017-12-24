@@ -29,6 +29,13 @@ public slots:
 
 	//ÊÓÆµÔÝÍ£
 	void pause();
+
+	//Ë®Ó¡
+	void mark();
+
+	void blend();
+
+	void merge();
 private:
 	Ui::XVideoUIClass ui;
 };

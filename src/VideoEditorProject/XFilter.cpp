@@ -46,8 +46,20 @@ public:
 				break;
 			case XTASK_CLIP:
 				p.clip(tasks[i].para[0], tasks[i].para[1], tasks[i].para[2], tasks[i].para[3]);
+				break;	
+			case XTASK_GRAY:
+				p.gray();
 				break;
-				
+			case XTASK_MARK:
+				p.mark(tasks[i].para[0], tasks[i].para[1], tasks[i].para[2]);
+				break;
+			case XTASK_BLEND:
+				p.blend(tasks[i].para[0]);
+				break;
+			case XTASK_MERGE:
+				p.merge();
+				break;
+
 			default:
 				break;
 			}
