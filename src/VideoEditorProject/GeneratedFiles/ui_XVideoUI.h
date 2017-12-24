@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -40,6 +41,10 @@ public:
     QPushButton *exportButton;
     QPushButton *playButton;
     QPushButton *pauseButton;
+    QLabel *label_3;
+    QComboBox *rotate;
+    QLabel *label_4;
+    QComboBox *flip;
 
     void setupUi(QWidget *XVideoUIClass)
     {
@@ -123,6 +128,7 @@ public:
         contrast->setObjectName(QStringLiteral("contrast"));
         contrast->setGeometry(QRect(740, 580, 81, 22));
         contrast->setMaximum(3);
+        contrast->setValue(1);
         setButton = new QPushButton(XVideoUIClass);
         setButton->setObjectName(QStringLiteral("setButton"));
         setButton->setGeometry(QRect(940, 550, 93, 41));
@@ -134,10 +140,22 @@ public:
         exportButton->setGeometry(QRect(760, 490, 93, 31));
         playButton = new QPushButton(XVideoUIClass);
         playButton->setObjectName(QStringLiteral("playButton"));
-        playButton->setGeometry(QRect(240, 540, 121, 51));
+        playButton->setGeometry(QRect(220, 540, 51, 51));
         pauseButton = new QPushButton(XVideoUIClass);
         pauseButton->setObjectName(QStringLiteral("pauseButton"));
-        pauseButton->setGeometry(QRect(390, 540, 121, 51));
+        pauseButton->setGeometry(QRect(280, 540, 51, 51));
+        label_3 = new QLabel(XVideoUIClass);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(630, 610, 81, 21));
+        rotate = new QComboBox(XVideoUIClass);
+        rotate->setObjectName(QStringLiteral("rotate"));
+        rotate->setGeometry(QRect(740, 610, 87, 22));
+        label_4 = new QLabel(XVideoUIClass);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(630, 650, 81, 21));
+        flip = new QComboBox(XVideoUIClass);
+        flip->setObjectName(QStringLiteral("flip"));
+        flip->setGeometry(QRect(740, 650, 87, 22));
 
         retranslateUi(XVideoUIClass);
         QObject::connect(closeButton, SIGNAL(clicked()), XVideoUIClass, SLOT(close()));
@@ -164,6 +182,22 @@ public:
         exportButton->setText(QApplication::translate("XVideoUIClass", "\345\257\274\345\207\272", Q_NULLPTR));
         playButton->setText(QString());
         pauseButton->setText(QString());
+        label_3->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\346\227\213\350\275\254", Q_NULLPTR));
+        rotate->clear();
+        rotate->insertItems(0, QStringList()
+         << QApplication::translate("XVideoUIClass", "0", Q_NULLPTR)
+         << QApplication::translate("XVideoUIClass", "90", Q_NULLPTR)
+         << QApplication::translate("XVideoUIClass", "180", Q_NULLPTR)
+         << QApplication::translate("XVideoUIClass", "270", Q_NULLPTR)
+        );
+        label_4->setText(QApplication::translate("XVideoUIClass", "\345\233\276\345\203\217\351\225\234\345\203\217", Q_NULLPTR));
+        flip->clear();
+        flip->insertItems(0, QStringList()
+         << QApplication::translate("XVideoUIClass", "\344\270\215\345\244\204\347\220\206", Q_NULLPTR)
+         << QApplication::translate("XVideoUIClass", "\344\270\212\344\270\213\351\225\234\345\203\217", Q_NULLPTR)
+         << QApplication::translate("XVideoUIClass", "\345\267\246\345\217\263\351\225\234\345\203\217", Q_NULLPTR)
+         << QApplication::translate("XVideoUIClass", "\344\270\212\344\270\213\345\267\246\345\217\263\351\225\234\345\203\217", Q_NULLPTR)
+        );
     } // retranslateUi
 
 };

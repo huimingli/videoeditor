@@ -168,6 +168,9 @@ color: rgb(255, 255, 255);
    <property name="maximum">
     <double>3.000000000000000</double>
    </property>
+   <property name="value">
+    <double>1.000000000000000</double>
+   </property>
   </widget>
   <widget class="QPushButton" name="setButton">
    <property name="geometry">
@@ -208,9 +211,9 @@ color: rgb(255, 255, 255);
   <widget class="QPushButton" name="playButton">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>220</x>
      <y>540</y>
-     <width>121</width>
+     <width>51</width>
      <height>51</height>
     </rect>
    </property>
@@ -221,14 +224,139 @@ color: rgb(255, 255, 255);
   <widget class="QPushButton" name="pauseButton">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>280</x>
      <y>540</y>
-     <width>121</width>
+     <width>51</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>610</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>图像旋转</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="rotate">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>610</y>
+     <width>87</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>90</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>180</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>270</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>650</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>图像镜像</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="flip">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>650</y>
+     <width>87</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>不处理</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>上下镜像</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>左右镜像</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>上下左右镜像</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>700</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>图像尺寸W,H</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="width">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>690</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>9999</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="height">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>710</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>99999</number>
    </property>
   </widget>
  </widget>

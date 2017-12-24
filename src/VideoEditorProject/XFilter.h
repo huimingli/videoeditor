@@ -5,7 +5,14 @@
 #include<opencv2/core.hpp>
 enum XTaskType {
 	XTASK_NONE,
-	XTASK_GAIN    //亮度对比度调整
+	XTASK_GAIN,    //亮度对比度调整
+	XTASK_ROTATE_90,
+	XTASK_ROTATE_180,
+	XTASK_ROTATE_270,
+	XTASK_FLIPX,
+	XTASK_FLIPY,
+	XTASK_FLIPXY,
+	XTASK_RESIZE
 };
 struct XTask {
 	XTaskType type;

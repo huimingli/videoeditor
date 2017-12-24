@@ -17,7 +17,27 @@ public:
 				//亮度对比度调整
 				p.gain(tasks[i].para[0], tasks[i].para[1]);
 				break;
-
+			case XTASK_ROTATE_90:
+				p.rotate90();
+				break;
+			case XTASK_ROTATE_180:
+				p.rotate180();
+				break;
+			case XTASK_ROTATE_270:
+				p.rotate270();
+				break;
+			case XTASK_FLIPX:
+				p.flipX();
+				break;
+			case XTASK_FLIPY:
+				p.flipY();
+				break;
+			case XTASK_FLIPXY:
+				p.flipXY();
+				break;
+			case XTASK_RESIZE:
+				p.resize(tasks[i].para[0], tasks[i].para[1]);
+				break;
 			default:
 				break;
 			}

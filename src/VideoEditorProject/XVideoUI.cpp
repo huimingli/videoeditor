@@ -45,6 +45,7 @@ void XVideoUI::open() {
 		QMessageBox::information(0, "", name+"open failed");
 		return;
 	}
+	play();
 	/*QMessageBox::information(0, "", name);*/
 }
 
@@ -75,15 +76,44 @@ void XVideoUI::setPos(int pos)
 void XVideoUI::set()
 {
 	XFilter::Get()->clear();
+	//调整视频的尺寸
+	double w = ui.width->value();
+	double h = ui.height->value();
+	if ( w > 0 && h > 0) {
+		XFilter::Get()->addTask(XTask{ XTASK_RESIZE,{ w,h } });
+	}
 	//对比度和亮度的设置
 	if (ui.bright->value() > 0 ||
 		ui.contrast->value() >1) {
 		XFilter::Get()->addTask(XTask{ XTASK_GAIN,{(double)(ui.bright->value()),ui.contrast->value()} });
 	}
+	//图像旋转 1 90 2 180 3 270
+	if (ui.rotate->currentIndex() == 1) {
+		XFilter::Get()->addTask(XTask{XTASK_ROTATE_90});
+	}
+	else if (ui.rotate->currentIndex() == 2) {
+		XFilter::Get()->addTask(XTask{ XTASK_ROTATE_180 });
+	}
+	else if (ui.rotate->currentIndex() == 3) {
+		XFilter::Get()->addTask(XTask{ XTASK_ROTATE_270});
+	}
+
+	//图像镜像
+	if (ui.flip->currentIndex() == 1) {
+		XFilter::Get()->addTask(XTask{ XTASK_FLIPX });
+	}
+	else if (ui.flip->currentIndex() == 2) {
+		XFilter::Get()->addTask(XTask{ XTASK_FLIPY });
+	}
+	else if (ui.flip->currentIndex() == 3) {
+		XFilter::Get()->addTask(XTask{ XTASK_FLIPXY });
+	}
+	 
+	
+
 }
 void XVideoUI::exportVideo()
 {
-	
 	if (isExport) {
 		//停止导出
 		XVideoThread::Get()->stopSave();
@@ -93,10 +123,12 @@ void XVideoUI::exportVideo()
 	}
 	//开始导出
 	QString name = QFileDialog::getSaveFileName(this,"save","out1.avi");
+	int w = ui.width->value();
+	int h = ui.height->value();
 	if (name.isEmpty())
 		return;
 	std::string filename = name.toLocal8Bit().data();
-	if (XVideoThread::Get()->startSave(filename)) {
+	if (XVideoThread::Get()->startSave(filename,w,h)) {
 		isExport = true;
 		ui.exportButton->setText("stop export");
 	}
